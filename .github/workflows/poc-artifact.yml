@@ -1,0 +1,37 @@
+name: POC - Build & Artifact
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Artifact
+    runs-on: ubuntu-latest
+
+    env:
+      POC_MESSAGE: 'Hola desde GitHub Actions!'
+      OUT_DIR: dist
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Generar artefacto
+        run: python scripts/generate.py
+
+      - name: Subir artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact-${{ github.run_number }}
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 7
