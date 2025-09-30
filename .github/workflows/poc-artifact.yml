@@ -3,6 +3,12 @@ name: POC - Build & Artifact
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      custom_message:
+        description: 'Mensaje personalizado para el artefacto'
+        required: false
+        default: 'Ejecutado manualmente'
 
 permissions:
   contents: read
@@ -13,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      POC_MESSAGE: 'Hola desde GitHub Actions!'
+      POC_MESSAGE: ${{ inputs.custom_message || secrets.POC_MESSAGE || 'Hola desde GitHub Actions!' }}
       OUT_DIR: dist
 
     steps:
