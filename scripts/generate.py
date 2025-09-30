@@ -7,6 +7,8 @@ commit = os.getenv("GITHUB_SHA", "local-dev")[:7]
 run_number = os.getenv("GITHUB_RUN_NUMBER", "0")
 message = os.getenv("POC_MESSAGE", "Hola mundo desde GitHub Actions!")
 
+print(f"✓ Generando artefactos para commit {commit} (run #{run_number})")
+print(f"  - Mensaje: {message}")
 # Directorio de salida
 out_dir = os.getenv("OUT_DIR", "dist")
 os.makedirs(out_dir, exist_ok=True)
