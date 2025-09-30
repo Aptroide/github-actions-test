@@ -2,7 +2,7 @@ name: POC - Build & Artifact
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature/add-artifact]
   workflow_dispatch:
     inputs:
       custom_message:
@@ -25,6 +25,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Debug - Mostrar variables de entorno
+        run: |
+          echo "##[debug]=================================================="
+          echo "##[debug] Variables de GitHub Actions"
+          echo "##[debug]=================================================="
+          echo "##[debug] GITHUB_SHA: $GITHUB_SHA"
+          echo "##[debug] GITHUB_REF: $GITHUB_REF"
+          echo "##[debug] GITHUB_RUN_NUMBER: $GITHUB_RUN_NUMBER"
+          echo "##[debug] GITHUB_ACTOR: $GITHUB_ACTOR"
+          echo "##[debug] GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+          echo "##[debug]--------------------------------------------------"
+          echo "##[debug] Variables personalizadas"
+          echo "##[debug]--------------------------------------------------"
+          echo "##[debug] POC_MESSAGE: $POC_MESSAGE"
+          echo "##[debug] OUT_DIR: $OUT_DIR"
+          echo "##[debug]=================================================="
 
       - name: Setup Python
         uses: actions/setup-python@v5
